@@ -41,6 +41,12 @@ gem 'devise'
 # Facebook Login
 gem 'omniauth-facebook'
 
+# Fetching Crypto Currency Data
+gem 'coin_market'
+
+# Using Slim for views
+gem 'slim'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
