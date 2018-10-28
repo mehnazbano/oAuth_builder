@@ -1,0 +1,25 @@
+FROM ruby:2.4.4
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+RUN mkdir /crypto_currencies
+WORKDIR /crypto_currencies
+
+# Setting env up
+#ENV RAILS_ENV='development'
+#ENV RACK_ENV='development'
+
+# Adding project files
+COPY Gemfile /crypto_currencies/Gemfile
+COPY Gemfile.lock /crypto_currencies/Gemfile.lock
+RUN bundle install
+COPY . /crypto_currencies
+
+COPY config/puma.rb config/puma.rb
+
+# Copy the main application.
+COPY . .
+
+
+# RUN bundle exec rake assets:precompile
+
+EXPOSE 3000
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
