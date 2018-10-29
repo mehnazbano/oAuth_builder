@@ -8,10 +8,14 @@ services:
       dockerfile: ./docker/app/DockerFile
     depends_on:
       - db
+    ports:
+      - "3000:3000"
   db:
     image: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/usr/local/var/postgres/data
+    ports:
+      - "5432:5432"
   web:
     build:
       context: .

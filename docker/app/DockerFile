@@ -1,25 +1,26 @@
 FROM ruby:2.4.4
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-RUN mkdir /crypto_currencies
-WORKDIR /crypto_currencies
+
+# Set an environment variable where the Rails app is installed to inside of Docker image
+ENV RAILS_ROOT /Users/mehnazbano/crypto_currencies
+ENV SECRET_KEY_BASE f9a1399bd69b68eca2a2725eb4c23c0b
+RUN mkdir -p $RAILS_ROOT
+# Set working directory
+WORKDIR $RAILS_ROOT
 
 # Setting env up
-#ENV RAILS_ENV='development'
-#ENV RACK_ENV='development'
+ENV RAILS_ENV='production'
+ENV RACK_ENV='production'
+
+# Adding gems
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
+RUN bundle install
 
 # Adding project files
-COPY Gemfile /crypto_currencies/Gemfile
-COPY Gemfile.lock /crypto_currencies/Gemfile.lock
-RUN bundle install
-COPY . /crypto_currencies
-
-COPY config/puma.rb config/puma.rb
-
-# Copy the main application.
 COPY . .
 
-
-# RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

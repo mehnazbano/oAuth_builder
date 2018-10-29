@@ -1,27 +1,27 @@
-h1
+h1.center
   = "Top Currencies"
-table border="1"
-  tr
+table
+  thead
 	  th
 	    = "Rank"
-	  th 
+	  th
 	    = "Currency Code"
-	  th 
+	  th
 	    = "Currency Name"
-	  th 
+	  th
 	    = "Market Cap"
 	  th
 	    = "Value(USD)"
-  - @currencies.each do |currency|
-    tr
-      td
-        = currency.rank.to_i
-      td
-        = currency.symbol
-      td
-        = currency.name
-      td
-        = currency.market_cap
-      td
-        = currency.price
-  end
+  tbody
+    - @currencies.each do |currency|
+      tr
+        td
+          = currency.rank.to_i
+        td
+          = currency.symbol
+        td
+          = currency.name
+        td
+          = currency.market_cap
+        td
+          = currency.price

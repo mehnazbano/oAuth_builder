@@ -7,13 +7,14 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "currencies"%>
   </head>
 
   <body>
-    <% unless current_user %> 
+    <% unless current_user %>
     <% else %>
       <%= current_user[:name] %>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "primary-btn pull-right" %>
     <% end %>
     <%= yield %>
   </body>

@@ -1,3 +1,11 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password:
+  pool: 5
+  host: db
+
 development:
   host: localhost
   adapter: postgresql
@@ -7,7 +15,6 @@ development:
   username: postgres
   password: postgres
   port: 5432
-  host: db
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -21,15 +28,7 @@ test:
   username: postgres
   password: postgres
   port: 5432
-  host: db
 
 production:
-  host: localhost
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: crypto_production
-  pool: 5
-  username: postgres
-  password: postgres
-  port: 5432
-  host: db
